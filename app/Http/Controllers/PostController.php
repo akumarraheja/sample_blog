@@ -9,11 +9,21 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    /**
+     * returns the new post creation page
+     *
+     * @return void
+     */
     public function newpost()
     {
         return view('newpost');
     }
 
+    /**
+     * handles the request from new post creation page
+     *
+     * @return void
+     */
     public function create()
     {
 
@@ -32,6 +42,12 @@ class PostController extends Controller
         return redirect('/')->with('success', 'Post was successfully published.');
     }
 
+    /**
+     * deletes a post
+     *
+     * @param string $id
+     * @return void
+     */
     public function destroy($id)
     {
         Comment::where('post_id', $id)->delete();
@@ -39,11 +55,24 @@ class PostController extends Controller
         return redirect('/')->with('success', 'Post was deleted successfully');
     }
 
+    /**
+     * returns the update post page
+     *
+     * @param string $id
+     * @return void
+     */
     public function updateview($id)
     {
         $post = Post::find($id);
         return view('updatepost', ['post' => $post]);
     }
+
+    /**
+     * handles the request from update post page
+     *
+     * @param string $id
+     * @return void
+     */
     public function update($id)
     {
         $attributes = request()->validate([

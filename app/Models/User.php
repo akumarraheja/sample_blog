@@ -42,11 +42,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * defines the relation to posts table
+     *
+     * @return void
+     */
     public function posts()
     {
         return $this->hasMany(Post::class);
     }
 
+    /**
+     * defines the relation to comments table
+     *
+     * @return void
+     */
     public function comments()
     {
         return $this->hasMany(Comment::class);

@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\DB;
 
 class MainController extends Controller
 {
+    /**
+     * returns the home page with paginated posts
+     *
+     * @return void
+     */
     public function home()
     {
 
@@ -18,11 +23,22 @@ class MainController extends Controller
         return view('homepage', ['posts' => $posts]);
     }
 
+    /**
+     * returns a login page
+     *
+     * @return void
+     */
     public function login()
     {
         return view('login');
     }
 
+    /**
+     * returns the post page
+     *
+     * @param string $id
+     * @return void
+     */
     public function getpost($id)
     {
         $post = Post::with(['user', 'commentsnormal' => function ($query) {
@@ -36,11 +52,21 @@ class MainController extends Controller
         return view('viewpost', ['post' => $post]);
     }
 
+    /**
+     * returns the register page view
+     *
+     * @return void
+     */
     public function register()
     {
         return view('register');
     }
 
+    /**
+     * handles the create request from register page
+     *
+     * @return void
+     */
     public function create()
     {
         $attributes = request()->validate([
@@ -53,6 +79,11 @@ class MainController extends Controller
         return redirect('/')->with('success', 'Your account has been created');
     }
 
+    /**
+     * handles the login request from login page
+     *
+     * @return void
+     */
     public function authenticate()
     {
         $attributes = request()->validate([
@@ -66,6 +97,11 @@ class MainController extends Controller
         }
     }
 
+    /**
+     * logout the user
+     *
+     * @return void
+     */
     public function destroy()
     {
         auth()->logout();

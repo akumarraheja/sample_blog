@@ -1,5 +1,9 @@
 const variables = [];
 
+/**
+ * validates the input values from register form
+ * @returns boolean
+ */
 function validateregister() {
     let name = $('#name').val();
     let email = $('#email').val();
@@ -12,6 +16,10 @@ function validateregister() {
     return true;
 }
 
+/**
+ * validates login credentials
+ * @returns boolean
+ */
 function validatelogin() {
     let email = $('#email').val();
     let password = $('#password').val();
@@ -24,6 +32,7 @@ function validatelogin() {
 }
 
 /**
+ * opems the replies to a comment and collapses all the other replies
  *
  * @param {HTMLElement} elem
  * @param {string} comment_id
@@ -41,6 +50,10 @@ function openreplies(elem, comment_id) {
     document.getElementsByClassName('comment-' + comment_id)[0].classList.remove('d-none');
 }
 
+/**
+ * runs after a reply has been updated.
+ * scrolls the updated reply into view
+ */
 function openReply() {
     if (typeof variables['reply'] !== 'undefined') {
         let elem = document.getElementsByClassName('comment-' + variables['reply'])[0];
@@ -50,17 +63,33 @@ function openReply() {
     }
 }
 
-
+/**
+ * delete an existing post
+ * only accessible by admin
+ *
+ * @param {string} id
+ */
 function deletepost(id) {
     getConfirmationDialog('Delete', 'Are you sure?', 'Yes', 'No', () => {
         window.location.assign('/delete/post/' + id);
     }, () => {})
 }
 
+/**
+ * redirects to post update page
+ *
+ * @param {string} id
+ */
 function updatepost(id) {
     window.location.assign('/update/post/' + id);
 }
 
+/**
+ * opens a confirmation dialog confirming whether delete comment should be executed
+ *
+ * @param {string} post
+ * @param {string} id
+ */
 function deletecomment(post, id) {
     getConfirmationDialog('Delete', 'Are you sure?', 'Yes', 'No', () => {
         window.location.assign('/post/' + post + '/delete/comment/' + id);
@@ -68,6 +97,7 @@ function deletecomment(post, id) {
 }
 
 /**
+ * update a comment
  *
  * @param {HTMLElement} elem
  * @param {Number} id

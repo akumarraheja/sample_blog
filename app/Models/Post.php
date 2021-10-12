@@ -23,15 +23,31 @@ class Post extends Model
         );
     }
 
+    /**
+     * defines the relation to users table
+     *
+     * @return void
+     */
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    /**
+     * defines the relation to comments table
+     *
+     * @return void
+     */
     public function commentsnormal()
     {
         return $this->hasMany(Comment::class);
     }
+
+    /**
+     * defines the relation to comments table
+     *
+     * @return void
+     */
     public function commentsreply()
     {
         return $this->hasMany(Comment::class);
